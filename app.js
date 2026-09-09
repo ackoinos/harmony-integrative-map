@@ -61,7 +61,11 @@
         list.forEach(function (p, idx) {
             if (typeof p.lat !== "number" || typeof p.lng !== "number") return;
             var marker = L.marker([p.lat, p.lng]).addTo(markerLayer);
-            marker.bindPopup(popupHtml(p));
+            marker.bindPopup(popupHtml(p), {
+                autoPan: true,
+                autoPanPadding: [40, 60],
+                keepInView: true
+            });
             markersById[idx] = marker;
             bounds.push([p.lat, p.lng]);
         });
@@ -107,13 +111,36 @@
                 li.classList.add("active");
                 var marker = markersById[idx];
                 if (marker) {
-                    map.setView(marker.getLatLng(), 12, { animate: true });
-                    marker.openPopup();
+                    focusMarker(marker);
                 }
             });
 
             resultsEl.appendChild(li);
         });
+    }
+
+    // Center on a marker and open its popup. Because the popup opens ABOVE the
+    // pin, we nudge the map view down by ~90px so the pin sits in the
+    // lower-middle and the popup has room. This makes the selected location
+    // look centered instead of hidden behind the popup.
+    function focusMarker(marker) {
+        var targetZoom = Math.max(map.getZoom(), 12);
+        var latlng = marker.getLatLng();
+
+        function panAndOpen() {
+            var point = map.project(latlng, map.getZoom());
+            point.y -= 90; // push the pin down from dead-center
+            var adjusted = map.unproject(point, map.getZoom());
+            map.panTo(adjusted, { animate: true });
+            marker.openPopup();
+        }
+
+        if (map.getZoom() !== targetZoom) {
+            map.once("zoomend", panAndOpen);
+            map.setZoom(targetZoom);
+        } else {
+            panAndOpen();
+        }
     }
 
     function render(list) {
