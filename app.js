@@ -61,11 +61,9 @@
         list.forEach(function (p, idx) {
             if (typeof p.lat !== "number" || typeof p.lng !== "number") return;
             var marker = L.marker([p.lat, p.lng]).addTo(markerLayer);
-            marker.bindPopup(popupHtml(p), {
-                autoPan: true,
-                autoPanPadding: [40, 60],
-                keepInView: true
-            });
+            // autoPan off: focusMarker() does the centering manually so Leaflet's
+            // own pan doesn't fight it.
+            marker.bindPopup(popupHtml(p), { autoPan: false });
             markersById[idx] = marker;
             bounds.push([p.lat, p.lng]);
         });
@@ -119,27 +117,44 @@
         });
     }
 
-    // Center on a marker and open its popup. Because the popup opens ABOVE the
-    // pin, we nudge the map view down by ~90px so the pin sits in the
-    // lower-middle and the popup has room. This makes the selected location
-    // look centered instead of hidden behind the popup.
+    // Center the SELECTED location so the pin + its popup sit visually centered.
+    // The popup opens above the pin, so centering the pin alone leaves the popup
+    // (the real visual weight) up high. Instead we:
+    //   1. zoom in first (wait for the zoom to finish so projection math is correct)
+    //   2. open the popup and let it render
+    //   3. measure the popup's actual height, then center on the midpoint between
+    //      the pin and the top of the popup -- so the whole cluster is centered.
     function focusMarker(marker) {
         var targetZoom = Math.max(map.getZoom(), 12);
-        var latlng = marker.getLatLng();
 
-        function panAndOpen() {
-            var point = map.project(latlng, map.getZoom());
-            point.y -= 90; // push the pin down from dead-center
-            var adjusted = map.unproject(point, map.getZoom());
-            map.panTo(adjusted, { animate: true });
+        function centerOnCluster() {
             marker.openPopup();
+
+            // Wait a frame so the popup is in the DOM and measurable.
+            requestAnimationFrame(function () {
+                var popup = marker.getPopup();
+                var popupHeight = 150; // sensible fallback
+                if (popup && popup.getElement()) {
+                    popupHeight = popup.getElement().offsetHeight || popupHeight;
+                }
+
+                // Pin is at the marker point. Popup rises ~popupHeight above it.
+                // Center of the cluster is roughly half the popup height above the pin.
+                var pinPoint = map.latLngToContainerPoint(marker.getLatLng());
+                var clusterCenterY = pinPoint.y - (popupHeight / 2) - 10;
+                var targetPoint = L.point(pinPoint.x, clusterCenterY);
+                var targetLatLng = map.containerPointToLatLng(targetPoint);
+
+                map.panTo(targetLatLng, { animate: true });
+            });
         }
 
         if (map.getZoom() !== targetZoom) {
-            map.once("zoomend", panAndOpen);
-            map.setZoom(targetZoom);
+            map.flyTo(marker.getLatLng(), targetZoom, { duration: 0.4 });
+            map.once("moveend", centerOnCluster);
         } else {
-            panAndOpen();
+            map.panTo(marker.getLatLng(), { animate: false });
+            centerOnCluster();
         }
     }
 
