@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Provider | Harmony Integrative Orofacial Health</title>
+    <meta name="description" content="Find a dental sleep airway provider near you.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Leaflet (free map library, no API key needed) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="brand">
+                <span class="brand-name">Harmony Integrative Orofacial Health</span>
+                <span class="brand-tagline">Dental Sleep &amp; Airway Consulting</span>
+            </div>
+            <span class="poc-badge">Provider Map &middot; Preview</span>
+        </div>
+    </header>
+
+    <section class="intro">
+        <div class="intro-inner">
+            <h1>Find a Provider Near You</h1>
+            <p>Search for a dental sleep and airway provider by city, province, or name. Select a result to see their details and location on the map.</p>
+        </div>
+    </section>
+
+    <main class="finder">
+        <!-- Left: search + results list -->
+        <aside class="panel">
+            <div class="search-box">
+                <label for="search" class="sr-only">Search providers</label>
+                <input type="text" id="search" placeholder="Search by city, province, or clinic name..." autocomplete="off">
+            </div>
+            <div class="result-count" id="resultCount"></div>
+            <ul class="results" id="results"></ul>
+        </aside>
+
+        <!-- Right: map -->
+        <div class="map-wrap">
+            <div id="map"></div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>This is a working preview for demonstration. Provider data shown is sample data.</p>
+        <p>Map data &copy; OpenStreetMap contributors. Built for Harmony Integrative Orofacial Health.</p>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="app.js"></script>
+</body>
+</html>

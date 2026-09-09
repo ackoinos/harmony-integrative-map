@@ -1,0 +1,101 @@
+{
+  "_comment": "SAMPLE DATA for proof-of-concept only. Replace with real provider list. To add a provider, copy one block, update the fields, and set lat/lng (look up on Google Maps: right-click a location > the first two numbers are lat, lng).",
+  "providers": [
+    {
+      "name": "Bow Valley Dental Sleep",
+      "clinic": "Bow Valley Dental Sleep Centre",
+      "city": "Calgary",
+      "province": "AB",
+      "address": "215 8 Ave SW, Calgary, AB T2P 1B5",
+      "phone": "403-555-0142",
+      "website": "https://example.com",
+      "specialty": "Dental Sleep Medicine, Oral Appliance Therapy",
+      "lat": 51.0461,
+      "lng": -114.0712
+    },
+    {
+      "name": "Dr. Amara Singh",
+      "clinic": "Airway & Orofacial Health Clinic",
+      "city": "Edmonton",
+      "province": "AB",
+      "address": "10123 99 St NW, Edmonton, AB T5J 0R2",
+      "phone": "780-555-0198",
+      "website": "https://example.com",
+      "specialty": "Myofunctional Therapy, Airway Screening",
+      "lat": 53.5439,
+      "lng": -113.4923
+    },
+    {
+      "name": "Red Deer Sleep & Airway",
+      "clinic": "Central Alberta Airway Group",
+      "city": "Red Deer",
+      "province": "AB",
+      "address": "4818 50 Ave, Red Deer, AB T4N 4A3",
+      "phone": "403-555-0176",
+      "website": "https://example.com",
+      "specialty": "Oral Appliance Therapy",
+      "lat": 52.2681,
+      "lng": -113.8112
+    },
+    {
+      "name": "Dr. Jordan Lee",
+      "clinic": "Pacific Sleep Dentistry",
+      "city": "Vancouver",
+      "province": "BC",
+      "address": "1055 W Georgia St, Vancouver, BC V6E 3P3",
+      "phone": "604-555-0111",
+      "website": "https://example.com",
+      "specialty": "Dental Sleep Medicine, Pediatric Airway",
+      "lat": 49.2857,
+      "lng": -123.1207
+    },
+    {
+      "name": "Okanagan Orofacial Health",
+      "clinic": "Okanagan Orofacial Health",
+      "city": "Kelowna",
+      "province": "BC",
+      "address": "1633 Ellis St, Kelowna, BC V1Y 2A8",
+      "phone": "250-555-0155",
+      "website": "https://example.com",
+      "specialty": "Myofunctional Therapy",
+      "lat": 49.8880,
+      "lng": -119.4960
+    },
+    {
+      "name": "Prairie Sleep Solutions",
+      "clinic": "Prairie Sleep Solutions",
+      "city": "Saskatoon",
+      "province": "SK",
+      "address": "123 21 St E, Saskatoon, SK S7K 0B2",
+      "phone": "306-555-0133",
+      "website": "https://example.com",
+      "specialty": "Oral Appliance Therapy, Airway Screening",
+      "lat": 52.1332,
+      "lng": -106.6700
+    },
+    {
+      "name": "Dr. Priya Kaur",
+      "clinic": "Toronto Airway Institute",
+      "city": "Toronto",
+      "province": "ON",
+      "address": "483 Bay St, Toronto, ON M5G 2C9",
+      "phone": "416-555-0187",
+      "website": "https://example.com",
+      "specialty": "Dental Sleep Medicine, Myofunctional Therapy",
+      "lat": 43.6555,
+      "lng": -79.3829
+    },
+    {
+      "name": "Ottawa Sleep & Breathing",
+      "clinic": "Ottawa Sleep & Breathing Clinic",
+      "city": "Ottawa",
+      "province": "ON",
+      "address": "150 Elgin St, Ottawa, ON K2P 1L4",
+      "phone": "613-555-0120",
+      "website": "https://example.com",
+      "specialty": "Airway Screening, Oral Appliance Therapy",
+      "lat": 45.4165,
+      "lng": -75.6905
+    }
+  ]
+}
